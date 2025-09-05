@@ -1,5 +1,6 @@
 const foodPartnerModel = require("../models/foodPartner.model")
 const jwt = require('jsonwebtoken')
+const userModel = require("../models/user.model")
 
 const foodPartnerAuthMiddleware = async (req, res, next) => {
 
@@ -46,10 +47,10 @@ const userAuthMiddleware = async (req, res, next) => {
 
     try {
 
-        const decoded = jwt.sign(token, process.env.JWT_Secret)
-
-        const user = await userModel.findOne(decoded.id).select('-password')
-
+        const decoded = jwt.verify(token, process.env.JWT_Secret)
+    
+        const user = await userModel.findById(decoded.id).select('-password')
+       
         req.user = user
         next()
 

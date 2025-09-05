@@ -37,5 +37,26 @@ const registerFood = async (req, res) => {
     }
 };
 
+const foodReels = async(req,res)=>{
 
-module.exports = registerFood;
+    try {
+
+        const foods = await foodModel.find({})
+        res.status(200).json({
+            success: true,
+            data: foods
+        })
+        
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Internal server error",
+        });
+    }
+}
+
+
+module.exports = {
+    registerFood,
+    foodReels
+};
