@@ -15,7 +15,7 @@ const UserSignup = () => {
 
   const signup = async (data) => {
     const result = await dispatch(registerUser(data));
-    if (result.user) {
+    if (result.meta.requestStatus === "fulfilled") {
       navigate("/");
     }
   };

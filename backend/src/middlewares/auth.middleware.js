@@ -63,7 +63,4 @@ const userAuthMiddleware = async (req, res, next) => {
 }
 
 
-module.exports = {
-    foodPartnerAuthMiddleware,
-    userAuthMiddleware
-};
+module.exports = { foodPartnerAuthMiddleware, userAuthMiddleware }

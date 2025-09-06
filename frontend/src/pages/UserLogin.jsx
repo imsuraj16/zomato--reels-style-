@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,7 +6,7 @@ import { loginUser } from "../store/actions/userActions";
 const UserLogin = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user, loading, error } = useSelector((state) => state.user);
+  const { error } = useSelector((state) => state.user);
 
 
   const {
@@ -18,7 +17,7 @@ const UserLogin = () => {
 
   const loginHandler = async (data) => {
     const result = await dispatch(loginUser(data));
-    if (result.user) {
+    if (result.meta.requestStatus === "fulfilled") {
       navigate("/");
     }
   };

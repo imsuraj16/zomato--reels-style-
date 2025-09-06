@@ -1,12 +1,20 @@
-import React from 'react'
-import MainRoutes from './routes/MainRoutes'
+import MainRoutes from "./routes/MainRoutes";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { getFoods } from "./store/actions/foodActions";
 
 const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getFoods());
+  }, [dispatch]);
+
   return (
     <div>
-    <MainRoutes/>
+      <MainRoutes />
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
