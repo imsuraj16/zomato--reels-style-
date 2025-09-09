@@ -7,7 +7,6 @@ const foodPartnerAuthMiddleware = async (req, res, next) => {
     try {
 
         const { token } = req.cookies
-
         if (!token) {
             return res.status(401).json({
                 msg: "unauthorized user"
@@ -15,7 +14,7 @@ const foodPartnerAuthMiddleware = async (req, res, next) => {
         }
 
         try {
-            const decoded = jwt.verify(token, process.env.JWT_Secret)
+            const decoded = jwt.verify(token, process.env.JWT_SECRET)
 
             const partner = await foodPartnerModel.findById(decoded.id).select('-password')
 
@@ -38,7 +37,6 @@ const foodPartnerAuthMiddleware = async (req, res, next) => {
 const userAuthMiddleware = async (req, res, next) => {
 
     const { token } = req.cookies
-
     if (!token) {
         return res.status(401).json({
             msg: "unauthorized user"
@@ -47,11 +45,11 @@ const userAuthMiddleware = async (req, res, next) => {
 
     try {
 
-        const decoded = jwt.verify(token, process.env.JWT_Secret)
-    
+        const decoded = jwt.verify(token, process.env.JWT_SECRET)
+      
         const user = await userModel.findById(decoded.id).select('-password')
        
-        req.user = user
+        req.user = user 
         next()
 
     } catch (error) {

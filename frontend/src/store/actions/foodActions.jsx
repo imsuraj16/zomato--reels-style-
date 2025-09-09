@@ -6,6 +6,7 @@ export const getFoods = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const  {data}  = await axios.get("api/v1/food/reels");
+            
       return data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data.message);

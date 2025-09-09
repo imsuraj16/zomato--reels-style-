@@ -5,6 +5,7 @@ import UserLogin from "../pages/UserLogin";
 import FoodPartnerSignup from "../pages/FoodPartnerSignup";
 import FoodPartnerLogin from "../pages/FoodPartnerLogin";
 import Home from "../pages/Home";
+import FoodPartnerDetails from "../pages/FoodPartnerDetails";
 
 const MainRoutes = () => {
   return (
@@ -14,6 +15,7 @@ const MainRoutes = () => {
       <Route path="/user/login" element={<UserLogin />} />
       <Route path="/partner/signup" element={<FoodPartnerSignup />} />
       <Route path="/partner/login" element={<FoodPartnerLogin />} />
+      <Route path="/foodpartner/:id" element={<FoodPartnerDetails />} />
     </Routes>
   );
 };

@@ -7,11 +7,15 @@ import {
   VolumeX,
   Play,
 } from "lucide-react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { get } from "react-hook-form";
+import { getFoods } from "../store/actions/foodActions";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   const { foods } = useSelector((state) => state.food);
-  
+  const dispatch = useDispatch();
+
   const containerRef = useRef(null);
   const videoRefs = useRef([]);
   const cardRefs = useRef([]);
@@ -21,6 +25,7 @@ export default function Home() {
 
   // IntersectionObserver to auto play/pause
   useEffect(() => {
+    dispatch(getFoods());
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -65,7 +70,7 @@ export default function Home() {
   }, [activeIndex]);
 
   const goTo = (idx) => {
-    if (idx < 0 || idx >= REELS.length) return;
+    if (idx < 0 || idx >= foods.length) return;
     cardRefs.current[idx]?.scrollIntoView({
       behavior: "smooth",
       block: "center",
@@ -176,14 +181,22 @@ export default function Home() {
 
               {/* Bottom meta */}
               <div className="absolute left-4 right-20 bottom-6 space-y-1">
-                <p className="text-sm text-white/90 font-medium">{item.user}</p>
-                <p className="text-sm text-white/80">{item.caption}</p>
-                <p className="text-xs text-white/60">
+                <p className="text-sm text-white/90 font-medium">
+                  {item.title}
+                </p>
+                <p className="text-sm text-white/80">{item.description}</p>
+                <Link to={`/foodpartner/${item._id}`}>
+                  <button className="bg-amber-400 hover:bg-amber-500 text-black font-semibold px-4 py-2 rounded-lg shadow-md transition">
+                    Visit Store
+                  </button>
+                </Link>
+
+                {/* <p className="text-xs text-white/60">
                   {Intl.NumberFormat().format(
                     item.likes + (liked.has(item.id) ? 1 : 0)
                   )}{" "}
                   likes • {item.comments} comments
-                </p>
+                </p> */}
               </div>
             </div>
           </section>
